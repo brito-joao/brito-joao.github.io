@@ -1,3 +1,62 @@
 body{
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    font-family: "roboto","arial";
+}
+
+.intro{
+    display: flex;
+    flex-direction: column;
+    background-color: #1F2937;
+    color:white;
+    padding-left: 15%;
+    padding-right: 15%;
+    gap:100px;
+}
+.header{
+    display: flex;
+    
+    align-content: center;
+    
+}
+.header ul{
+    align-self: center;
+    justify-content: space-around;
+    display: inline-flex;
+    gap: 20px;
+    margin-left: auto;
+}
+ul{
+    list-style-type:none;
+}
+
+.intro_content{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 100px;
+    padding-bottom: 10%;
+    font-size: 4vh;
+}
+.intro_content p{
+    font-size: 2vh;
+    width: 50%;
+}
+.intro_content div{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.intro_content button{
+    background-color: #3882F6;
+    color:azure;
+    font-size: large;
+    border-radius: 20%;
+}
+.intro_content .intro_camera{
+    
+    margin-left: auto;
 }
