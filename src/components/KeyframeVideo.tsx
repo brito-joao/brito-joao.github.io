@@ -16,6 +16,24 @@ export default function KeyframeVideo({ activeSection, variant = "card" }: Keyfr
   const [currentTime, setCurrentTime] = useState(0);
   const [isReady, setIsReady] = useState(false);
 
+  // Force video initialization for iOS and strict mobile browsers
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.load();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            video.pause();
+          })
+          .catch(() => {
+            // Autoplay might be blocked by Low Power Mode, ignore silently
+          });
+      }
+    }
+  }, []);
+
   // Synchronize scroll position with video scrubbing frame
   useEffect(() => {
     const handleScroll = () => {
@@ -83,15 +101,16 @@ export default function KeyframeVideo({ activeSection, variant = "card" }: Keyfr
       <div ref={containerRef} className="w-full h-full relative overflow-hidden">
         <video
           ref={videoRef}
-          src="/0524.mov"
+          src="/0524.mp4"
           preload="auto"
+          autoPlay
           muted
           playsInline
           onLoadedMetadata={handleLoadedMetadata}
           className="w-full h-full object-cover pointer-events-none"
           style={{ objectPosition: "center 22%" }}
         />
-        <div className="absolute inset-0 bg-white/85 pointer-events-none" />
+        <div className="absolute inset-0 bg-white/70 pointer-events-none" />
       </div>
     );
   }
@@ -122,8 +141,9 @@ export default function KeyframeVideo({ activeSection, variant = "card" }: Keyfr
         <div className="relative flex-1 my-4 overflow-hidden rounded-[1.75rem] bg-stone-50 border border-stone-150/70 shadow-inner group-hover:border-stone-300/45 transition-colors">
           <video
             ref={videoRef}
-            src="/0524.mov"
+            src="/0524.mp4"
             preload="auto"
+            autoPlay
             muted
             playsInline
             onLoadedMetadata={handleLoadedMetadata}
